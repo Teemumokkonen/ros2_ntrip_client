@@ -1,3 +1,6 @@
+#ifndef NTRIP_CLIENT_CLIENT_HPP
+#define NTRIP_CLIENT_CLIENT_HPP
+
 #include "rclcpp/rclcpp.hpp"
 #include <stdio.h>        // For perror()
 #include <stdlib.h>       // For EXIT_FAILURE
@@ -9,7 +12,8 @@
 #include <netdb.h> // For gethostbyname()
 #include <netinet/tcp.h>
 #include <asm-generic/fcntl.h>
-//#include <fcntl.h>
+
+
 namespace Ntrip {
 
 class NtripClient
@@ -28,3 +32,5 @@ public:
 };
 
 }
+
+#endif // NTRIP_CLIENT_CLIENT_HPP
