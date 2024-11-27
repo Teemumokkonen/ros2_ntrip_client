@@ -11,7 +11,7 @@ Ntrip::NtripClient::NtripClient()
     }
     
     // Get the server address from the hostname
-    struct hostent *host = gethostbyname("gps1.geod.agh.edu.pl");
+    struct hostent *host = gethostbyname("rtk2go.com");
     if (host == NULL) {
         fprintf(stderr, "Error: Could not resolve hostname.\n");
         exit(EXIT_FAILURE);
@@ -58,7 +58,7 @@ bool Ntrip::NtripClient::connect()
     }
 
     RCLCPP_INFO(nh->get_logger(), "Binded to the target server succesfully");
-    std::string name_password = "template@gmail.com:none";
+    std::string name_password = "teemu.mokkonen@tuni.fi:none";
     std::string base64name_password = base64_encode(name_password);
     std::unique_ptr<char[]> buffer(
             new char[buffer_size], std::default_delete<char[]>());
@@ -68,7 +68,7 @@ bool Ntrip::NtripClient::connect()
                        "User-Agent: %s\r\n"
                        "Authorization: Basic %s\r\n"
                        "\r\n",
-                        "Test", "NTRIP NTRIPClient/1.1.0.", base64name_password.c_str());
+                        ".-", "NTRIP NTRIPClient/1.1.0.", base64name_password.c_str());
     //connect(clientSocket, (struct sockaddr*)&serverAddress, sizeof(serverAddress));
 
     RCLCPP_INFO(nh->get_logger(), "send %s", buffer.get());
@@ -86,7 +86,7 @@ bool Ntrip::NtripClient::connect()
             std::string result(buffer.get(), ret);
             if ((result.find("HTTP/1.1 200 OK") != std::string::npos) || (result.find("ICY 200 OK") != std::string::npos))
                 { 
-                    //RCLCPP_INFO(rclcpp::get_logger("NtripClient"), "Send gpgga data ok");
+                    RCLCPP_INFO(rclcpp::get_logger("NtripClient"), "Send gpgga data ok");
                     break;
                 }
                 else
